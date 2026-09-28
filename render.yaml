@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: strategy-play
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .

@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+  >
+
+  <meta
+    name="theme-color"
+    content="#040504"
+  >
+
+  <title>Strategy Play</title>
+
+  <!-- Strategy Play styling -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- TradingView hosted widget -->
+  <script src="https://s3.tradingview.com/tv.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+
+  <!-- ======================================================
+       TOP BAR
+       ====================================================== -->
+
+  <header class="topbar">
+
+    <button
+      id="mobileMenu"
+      class="icon-btn"
+      type="button"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+    <div class="brand">
+
+      <span class="brand-mark">
+        S
+      </span>
+
+      <span>
+        Strategy <b>Play</b>
+      </span>
+
+    </div>
+
+
+    <div class="market-controls">
+
+      <select
+        id="symbol"
+        aria-label="Market"
+      >
+
+        <option value="BTCUSDT">
+          Bitcoin / USDT
+        </option>
+
+        <option value="XAUUSD">
+          Gold / USD
+        </option>
+
+        <option value="GBPJPY">
+          GBP / JPY
+        </option>
+
+        <option value="EURUSD">
+          EUR / USD
+        </option>
+
+      </select>
+
+
+      <select
+        id="timeframe"
+        aria-label="Timeframe"
+      >
+
+        <option value="1">
+          1m
+        </option>
+
+        <option value="5">
+          5m
+        </option>
+
+        <option value="15">
+          15m
+        </option>
+
+        <option value="30">
+          30m
+        </option>
+
+        <option
+          value="60"
+          selected
+        >
+          1H
+        </option>
+
+        <option value="240">
+          4H
+        </option>
+
+        <option value="D">
+          1D
+        </option>
+
+        <option value="W">
+          1W
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="top-actions">
+
+      <button
+        id="saveBtn"
+        class="ghost-btn"
+        type="button"
+      >
+        Save
+      </button>
+
+      <button
+        id="resetBtn"
+        class="ghost-btn"
+        type="button"
+      >
+        Reset
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- ======================================================
+       WORKSPACE
+       ====================================================== -->
+
+  <div class="workspace">
+
+
+    <!-- ====================================================
+         SIDEBAR
+         ==================================================== -->
+
+    <aside
+      id="sidebar"
+      class="sidebar"
+    >
+
+
+      <!-- ==================================================
+           REPLAY
+           ================================================== -->
+
+      <section>
+
+        <div class="section-title">
+          Replay
+        </div>
+
+
+        <div class="replay-controls">
+
+          <button
+            id="playBtn"
+            class="primary-btn"
+            type="button"
+          >
+            ▶ Play
+          </button>
+
+
+          <button
+            id="pauseBtn"
+            class="ghost-btn"
+            type="button"
+          >
+            Ⅱ
+          </button>
+
+
+          <button
+            id="nextBtn"
+            class="ghost-btn"
+            type="button"
+          >
+            Next
+          </button>
+
+        </div>
+
+
+        <label class="range-label">
+
+          Speed
+
+          <span id="speedValue">
+            1x
+          </span>
+
+        </label>
+
+
+        <input
+          id="speed"
+          type="range"
+          min="1"
+          max="5"
+          step="1"
+          value="1"
+        >
+
+
+        <div class="replay-status">
+
+          <span id="replayState">
+            Live chart
+          </span>
+
+        </div>
+
+
+        <input
+          id="replayRange"
+          type="range"
+          min="0"
+          max="100"
+          value="100"
+        >
+
+
+        <div
+          class="replay-counter"
+          id="candleCounter"
+        >
+          Replay position: live
+        </div>
+
+      </section>
+
+
+      <!-- ==================================================
+           TRADINGVIEW TOOLS
+           ================================================== -->
+
+      <section>
+
+        <div class="section-title">
+          TradingView Tools
+        </div>
+
+
+        <div class="tv-help">
+
+          The chart uses TradingView's own
+          chart interface.
+
+          Use the drawing toolbar directly
+          on the chart.
+
+        </div>
+
+      </section>
+
+
+      <!-- ==================================================
+           MANUAL TRADE
+           ================================================== -->
+
+      <section>
+
+        <div class="section-title">
+          Manual Trade
+        </div>
+
+
+        <div class="trade-fields">
+
+
+          <label>
+
+            Entry
+
+            <input
+              id="entry"
+              type="number"
+              step="any"
+              placeholder="Price"
+            >
+
+          </label>
+
+
+          <label>
+
+            Stop Loss
+
+            <input
+              id="sl"
+              type="number"
+              step="any"
+              placeholder="Price"
+            >
+
+          </label>
+
+
+          <label>
+
+            Take Profit
+
+            <input
+              id="tp"
+              type="number"
+              step="any"
+              placeholder="Price"
+            >
+
+          </label>
+
+
+          <label>
+
+            Note
+
+            <textarea
+              id="tradeNote"
+              rows="3"
+              placeholder="Your analysis..."
+            ></textarea>
+
+          </label>
+
+
+          <button
+            id="recordTrade"
+            class="primary-btn"
+            type="button"
+          >
+            Record Trade
+          </button>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ==================================================
+           WORKSPACE STATS
+           ================================================== -->
+
+      <section>
+
+        <div class="section-title">
+          Your Workspace
+        </div>
+
+
+        <div class="workspace-stat">
+
+          <span>
+            Drawings
+          </span>
+
+          <b id="drawingCount">
+            TradingView
+          </b>
+
+        </div>
+
+
+        <div class="workspace-stat">
+
+          <span>
+            Trades
+          </span>
+
+          <b id="tradeCount">
+            0
+          </b>
+
+        </div>
+
+
+        <div class="workspace-stat">
+
+          <span>
+            Status
+          </span>
+
+          <b id="saveStatus">
+            Saved
+          </b>
+
+        </div>
+
+      </section>
+
+
+    </aside>
+
+
+    <!-- ====================================================
+         MAIN AREA
+         ==================================================== -->
+
+    <main class="main">
+
+
+      <!-- ==================================================
+           CHART HEADER
+           ================================================== -->
+
+      <div class="chart-head">
+
+
+        <div>
+
+          <div
+            id="pairTitle"
+            class="pair-title"
+          >
+            Bitcoin / USDT
+          </div>
+
+
+          <div
+            id="chartStatus"
+            class="muted"
+          >
+            Connecting to TradingView…
+          </div>
+
+        </div>
+
+
+        <div class="chart-actions">
+
+          <button
+            id="fitBtn"
+            class="ghost-btn"
+            type="button"
+          >
+            Fit
+          </button>
+
+
+          <button
+            id="clearDrawings"
+            class="ghost-btn danger"
+            type="button"
+          >
+            Clear
+          </button>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- ==================================================
+           TRADINGVIEW CHART
+           ================================================== -->
+
+      <div
+        id="chartWrap"
+        class="chart-wrap"
+      >
+
+        <div
+          id="tradingview_chart"
+        ></div>
+
+
+        <div
+          id="loading"
+          class="loading"
+        >
+          Connecting to TradingView…
+        </div>
+
+      </div>
+
+
+      <!-- ==================================================
+           BOTTOM REPLAY BAR
+           ================================================== -->
+
+      <div class="timeline">
+
+        <span>
+          Replay
+        </span>
+
+
+        <input
+          id="replayRangeBottom"
+          type="range"
+          min="0"
+          max="100"
+          value="100"
+        >
+
+
+        <span id="bottomReplayText">
+          Live
+        </span>
+
+      </div>
+
+
+      <!-- ==================================================
+           JOURNAL
+           ================================================== -->
+
+      <div class="bottom-panel">
+
+        <div class="bottom-title">
+          Analysis journal
+        </div>
+
+
+        <textarea
+          id="journal"
+          placeholder="Write what you saw, what you marked, and what you learned."
+        ></textarea>
+
+      </div>
+
+
+    </main>
+
+
+  </div>
+
+
+</div>
+
+
+<!-- ========================================================
+     IMPORTANT:
+     TradingView tv.js is loaded in <head> BEFORE this file.
+     ======================================================== -->
+
+<script src="app.js"></script>
+
+</body>
+</html>
